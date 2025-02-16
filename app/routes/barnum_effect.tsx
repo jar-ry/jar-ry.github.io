@@ -3,14 +3,14 @@ import { useEffect, useRef } from "react";
 export default function BarnumEffect() {
   const gistContainerRef = useRef(null);
 
-  useEffect(() => {
-    const gistScript = document.createElement("script");
-    gistScript.src = "https://gist.github.com/jar-ry/5c1d4d3c0f7fd2aee09075eb2a68b828.js"; // Replace with your actual Gist ID
-    gistScript.async = true;
-    gistScript.crossOrigin = "anonymous";
-    gistContainerRef.current.innerHTML = ""; // Clear previous embeds
-    gistContainerRef.current.appendChild(gistScript);
-  }, []);
+  // useEffect(() => {
+  //   const gistScript = document.createElement("script");
+  //   gistScript.src = "https://gist.github.com/jar-ry/5c1d4d3c0f7fd2aee09075eb2a68b828.js"; // Replace with your actual Gist ID
+  //   gistScript.async = true;
+  //   gistScript.crossOrigin = "anonymous";
+  //   gistContainerRef.current.innerHTML = ""; // Clear previous embeds
+  //   gistContainerRef.current.appendChild(gistScript);
+  // }, []);
 
   return (
     <div className="container mx-auto p-6 bg-[#FAF3E0] shadow-md rounded-lg relative">
