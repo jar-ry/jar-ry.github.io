@@ -1,66 +1,74 @@
 import type { MetaFunction } from "@remix-run/node";
+import { useState, useEffect } from "react";
 import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Jarry's Website" },
+    { name: "description", content: "Welcome!" },
   ];
 };
 
 export default function Index() {
+  const [apiKey, setApiKey] = useState({ apiKey: "" });
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const apiKey = urlParams.get("key");
+    if (apiKey) {
+      setApiKey((prev) => ({ ...prev, apiKey }));
+    }
+  }, []);
+
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col items-center gap-16">
-        <header className="flex flex-col items-center gap-9">
-          <h1 className="leading text-2xl font-bold text-gray-800 dark:text-gray-100">
-            Welcome to Jarry's website <span className="sr-only">Remix</span>
-          </h1>
-          <div className="h-[144px] w-[434px]">
-            <img
-              src="/logo-light.png"
-              alt="Remix"
-              className="block w-full dark:hidden"
-            />
-            <img
-              src="/logo-dark.png"
-              alt="Remix"
-              className="hidden w-full dark:block"
-            />
-          </div>
-        </header>
-        <nav className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
-          <p className="leading-6 text-gray-700 dark:text-gray-200">
-            What&apos;s next?
-          </p>
-          <ul>
-            {ex_resources.map(({ href, text, icon }) => (
-              <li key={href}>
-                <a
-                  className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {icon}
-                  {text}
-                </a>
-              </li>
-            ))}
-            {int_resources.map(({ href, text, icon }) => (
-              <li key={href}>
-                <Link
-                  className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                  to={href}
-                >
-                  {icon}
-                  {text}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+    <div className="flex flex-col items-center justify-start pt-10 space-y-6">
+      {/* Header Section */}
+      <header className="text-center">
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+          Welcome to Jarry's website <span className="sr-only">Remix</span>
+        </h1>
+      </header>
+
+      {/* Image Section */}
+      <div className="w-1/3">
+        <img
+          src="/face.jpg"
+          alt="Face"
+        />
       </div>
+
+      {/* Navigation Section */}
+      <nav className="flex flex-col justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
+        <p className="leading-6 text-gray-700 dark:text-gray-200">
+          What&apos;s next?
+        </p>
+        <ul>
+          {ex_resources.map(({ href, text, icon }) => (
+            <li key={href}>
+              <a
+                className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {icon}
+                {text}
+              </a>
+            </li>
+          ))}
+          {int_resources.map(({ href, text, icon }) => (
+            <li key={href}>
+              <Link
+                className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
+                to={apiKey.apiKey ? `${href}?key=${apiKey.apiKey}` : href}
+              >
+                {icon}
+                {text}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 }
@@ -80,7 +88,7 @@ const ex_resources = [
 
 const int_resources = [
   {
-    href: "/barnum_ai",
+    href: "/ramen_sense",
     text: "Barnum AI (Ramen Advisor)",
     icon: (
       <svg

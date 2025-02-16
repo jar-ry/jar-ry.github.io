@@ -11,7 +11,7 @@ export function meta() {
     ];
   }
 
-export default function BarnumAI() {
+export default function RamenSense() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         linkedin: "",
@@ -50,7 +50,7 @@ export default function BarnumAI() {
         }
         
         try {
-            const target_ramen = "Hakata Ramen";
+            // const target_ramen = "Hakata Ramen";
             // const mock_response = { 
             //     introduction: "Hello there! Your career in data science and background in computer science truly speak to your INTJ Myers-Briggs type. Your propensity to strategise, analyse, and optimise is impressive. In line with your precise and curious intellect, I think you'll thoroughly enjoy the Hakata Ramen experience. Allow me to share why.", 
             //     recommendations: [ 
@@ -83,7 +83,8 @@ export default function BarnumAI() {
             // navigate("/result", {
             //     state: { recommendations: mock_response},
             // });
-        
+
+            const target_ramen = "Hakata Ramen";
             const response = await fetch("https://api.openai.com/v1/chat/completions", {
                 method: "POST",
                 headers: {
@@ -144,7 +145,7 @@ export default function BarnumAI() {
     };
 
     return (
-    <div className="min-h-screen bg-top bg-no-repeat" style={{ backgroundImage: 'url(/Ramens.jpg)', backgroundSize: '100%'}}>
+    <div className="min-h-screen bg-top bg-no-repeat" style={{ backgroundImage: 'url(/Ramens.jpg)', backgroundSize: '1500px'}}>
          {/* Heade r*/}
         <header className="text-center py-12 text-white bg-black bg-opacity-50 fixed top-0 left-0 w-full z-10">
             <h1 className="text-4xl font-semibold">Personalised Ramen Guidance for Corporate Types</h1>
