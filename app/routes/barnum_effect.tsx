@@ -1,16 +1,17 @@
 import { useEffect, useRef } from "react";
+import { Link } from "@remix-run/react";
 
 export default function BarnumEffect() {
   const gistContainerRef = useRef(null);
 
-  // useEffect(() => {
-  //   const gistScript = document.createElement("script");
-  //   gistScript.src = "https://gist.github.com/jar-ry/5c1d4d3c0f7fd2aee09075eb2a68b828.js"; // Replace with your actual Gist ID
-  //   gistScript.async = true;
-  //   gistScript.crossOrigin = "anonymous";
-  //   gistContainerRef.current.innerHTML = ""; // Clear previous embeds
-  //   gistContainerRef.current.appendChild(gistScript);
-  // }, []);
+  useEffect(() => {
+    const gistScript = document.createElement("script");
+    gistScript.src = "https://gist.github.com/jar-ry/5c1d4d3c0f7fd2aee09075eb2a68b828.js"; // Replace with your actual Gist ID
+    gistScript.async = true;
+    gistScript.crossOrigin = "anonymous";
+    gistContainerRef.current.innerHTML = ""; // Clear previous embeds
+    gistContainerRef.current.appendChild(gistScript);
+  }, []);
 
   return (
     <div className="container mx-auto p-6 bg-[#FAF3E0] shadow-md rounded-lg relative">
@@ -60,7 +61,12 @@ export default function BarnumEffect() {
 
       {/* Back to Results Link */}
       <div className="text-center mt-6 relative z-10">
-        <a href="/" className="text-lg font-bold text-[#FFD166] underline">Back to Home</a>
+        <Link
+          className="text-lg font-bold text-[#FFD166] underline"
+          to="/"
+        >
+          Back to Home
+        </Link>
       </div>
     </div>
   );
