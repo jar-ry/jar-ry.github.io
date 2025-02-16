@@ -1,4 +1,4 @@
-export default function BranumEffect() {
+export default function BarnumEffect() {
   return (
     <div className="container mx-auto p-6 bg-[#FAF3E0] shadow-md rounded-lg relative">
       {/* Background Overlay */}
@@ -37,6 +37,12 @@ export default function BranumEffect() {
           Just like a well-crafted personality test, AI-generated recommendations can feel highly personal 
           while still being broadly applicable. Always question the reasoning behind an AI’s response!
         </p>
+      </div>
+
+      {/* GitHub Gist Embedding */}
+      <div className="mt-8 relative z-10 text-center">
+        <h3 className="text-2xl font-bold text-[#FFD166]">Example Code</h3>
+        <script src="https://gist.github.com/your-gist-id.js"></script>
       </div>
 
       {/* Back to Results Link */}

@@ -51,7 +51,7 @@ export default function ResultPage() {
 
       {/* See the result Link */}
       <div className="text-center mt-6 relative z-10">
-        <a href="/branum_effect" className="text-lg font-bold text-[#FFD166] underline">See forbidden ingredients</a>
+        <a href="/barnum_effect" className="text-lg font-bold text-[#FFD166] underline">See forbidden ingredients</a>
       </div>
     </div>
   );
