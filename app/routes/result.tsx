@@ -2,13 +2,13 @@ import { useLocation } from "@remix-run/react";
 
 export default function ResultPage() {
   const location = useLocation();
-  const { recommendations } = location.state || {}; // Get the recommendations from state
+  const { result_content } = location.state || {}; // Get the result_content from state
 
-  if (!recommendations) {
+  if (!result_content) {
     return <p>No recommendations available.</p>;
   }
 
-  const parsedRecommendations = recommendations;
+  const parsedRecommendations = JSON.parse(result_content)
 
   return (
     <div className="container mx-auto p-6 bg-[#FAF3E0] shadow-md rounded-lg relative">
