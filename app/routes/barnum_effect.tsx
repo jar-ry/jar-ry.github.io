@@ -1,4 +1,17 @@
+import { useEffect, useRef } from "react";
+
 export default function BarnumEffect() {
+  const gistContainerRef = useRef(null);
+
+  useEffect(() => {
+    const gistScript = document.createElement("script");
+    gistScript.src = "https://gist.github.com/jar-ry/5c1d4d3c0f7fd2aee09075eb2a68b828.js"; // Replace with your actual Gist ID
+    gistScript.async = true;
+    gistScript.crossOrigin = "anonymous";
+    gistContainerRef.current.innerHTML = ""; // Clear previous embeds
+    gistContainerRef.current.appendChild(gistScript);
+  }, []);
+
   return (
     <div className="container mx-auto p-6 bg-[#FAF3E0] shadow-md rounded-lg relative">
       {/* Background Overlay */}
@@ -42,7 +55,7 @@ export default function BarnumEffect() {
       {/* GitHub Gist Embedding */}
       <div className="mt-8 relative z-10 text-center">
         <h3 className="text-2xl font-bold text-[#FFD166]">Example Code</h3>
-        <script src="https://gist.github.com/your-gist-id.js"></script>
+        <div ref={gistContainerRef}></div>
       </div>
 
       {/* Back to Results Link */}
