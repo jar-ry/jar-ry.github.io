@@ -30,7 +30,7 @@ export default function Index() {
       </header>
 
       {/* Image Section */}
-      <div className="w-1/3">
+      <div className="w-1/4">
         <img
           src="/face.jpg"
           alt="Face"
