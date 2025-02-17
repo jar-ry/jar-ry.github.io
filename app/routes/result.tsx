@@ -51,9 +51,9 @@ export default function ResultPage() {
 
       {/* See the result Link */}
         
-      <div className="text-center mt-6 relative z-10">
+      <div className="text-center mt-6 pt-8 relative z-10">
         <Link
-          className="text-lg font-bold text-[#FFD166] underline"
+          className="text-lg font-bold text-[#FFD166] underline py-4 px-6 bg-[#FF6347] rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105"
           to="/barnum_effect"
         >
         See forbidden ingredients
