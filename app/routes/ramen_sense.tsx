@@ -41,7 +41,7 @@ export default function RamenSense() {
         const interval = setInterval(() => {
             setLoadingText(messages[i]);
             i = (i + 1) % messages.length;
-        }, 2500);
+        }, 3500);
         return () => clearInterval(interval);
         }
     }, [loading]);
@@ -132,6 +132,7 @@ export default function RamenSense() {
             });
 
             const data = await response.json();
+            console.log(data)
             if (!response.ok) {
                 const errorData = data;
         
