@@ -171,7 +171,7 @@ export default function RamenSense() {
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* URL Input */}
                 <div>
-                <label className="block text-gray-700 font-medium">Your <a href="https://www.linkedin.com/public-profile/settings"  target="_blank" rel="noopener noreferrer" className="underline text-blue-600 hover:text-blue-800">LinkedIn</a> Profile</label>
+                <label className="block text-gray-700 font-medium">Copy everything on your <a href="https://www.linkedin.com/public-profile/settings"  target="_blank" rel="noopener noreferrer" className="underline text-blue-600 hover:text-blue-800">LinkedIn</a> Profile</label>
                 <textarea
                     name="linkedin"
                     value={formData.linkedin}
