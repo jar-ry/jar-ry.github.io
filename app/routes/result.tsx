@@ -52,13 +52,12 @@ export default function ResultPage() {
       {/* See the result Link */}
         
       <div className="text-center mt-6 relative z-10">
-      <Link
+        <Link
           className="text-lg font-bold text-[#FFD166] underline"
           to="/barnum_effect"
         >
         See forbidden ingredients
         </Link>
-        {/* <a href="/barnum_effect" className="text-lg font-bold text-[#FFD166] underline">See forbidden ingredients</a> */}
       </div>
     </div>
   );
