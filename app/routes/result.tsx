@@ -26,7 +26,7 @@ export default function ResultPage() {
 
       {/* Introduction Section */}
       <div className="intro-section relative z-10 text-center">
-        <h2 className="text-4xl font-bold text-white">Personalized Ramen Guidance</h2>
+        <h2 className="text-4xl font-bold text-white">Hakata Ramen!!!</h2>
         <p className="text-lg mt-4 text-[#FFD166]">{parsedRecommendations.introduction}</p>
       </div>
 
