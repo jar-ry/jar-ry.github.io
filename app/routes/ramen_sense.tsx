@@ -178,7 +178,7 @@ export default function RamenSense() {
                     value={formData.linkedin}
                     onChange={handleChange}
                     className="w-full p-2 border rounded-lg mt-1 focus:ring focus:ring-blue-300"
-                    placeholder="Paste your LinkedIn profile here..."
+                    placeholder="Paste your LinkedIn profile here... (DO NOT PASTE PROFILE URL LINK!)"
                 ></textarea>
                 </div>
 
