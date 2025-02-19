@@ -62,41 +62,7 @@ export default function RamenSense() {
             setLoading(false);
             return;
         }
-        await new Promise(resolve => setTimeout(resolve, 7000)); // 7 sec
         try {
-            // const mock_response = JSON.stringify({ 
-            //     introduction: "Hello there! Your career in data science and background in computer science truly speak to your INTJ Myers-Briggs type. Your propensity to strategise, analyse, and optimise is impressive. In line with your precise and curious intellect, I think you'll thoroughly enjoy the Hakata Ramen experience. Allow me to share why.", 
-            //     recommendations: [ 
-            //         { 
-            //             heading: "Refine Your Analytics with Hakata Ramen", 
-            //             body: "Your work in data science and strategic analytics has seen you use intricate algorithms and machine learning techniques. Hakata Ramen, with its profound tonkotsu broth that is diligently boiled for hours to achieve the perfect flavor profile, mirrors that analytical methods from your field. Understanding how each ingredient contributes to the rich, complex flavor may offer you a new perspective on how interconnected components contribute to an end result." 
-            //         }, 
-            //         { 
-            //             heading: "Technology and Tradition Converge", 
-            //             body: "As an INTJ, you are forward-thinking and open to innovative ideas. In this regard, enjoy how Hakata Ramen creates a fusion of tradition and innovation. How they maintain the traditional ramen cooking style while incorporating advancements in the culinary field reflects your approach in the tech world. Always seeking to improve how things work with cutting-edge technology in information and data analysis." 
-            //         }, 
-            //         {
-            //             heading: "Art of Perfection",
-            //             body: "In your roles at IBM and AustralianSuper, you've brought precision and efficiency to your work, seeking the optimal solutions. Hakata Ramen also pursuits such excellence. The Hakata district has cultivated this type of ramen over years to create the perfect balance of flavors which is reminiscent of how you approach your projects with a keen eye for detail and a drive for excellent results." 
-            //         }, 
-            //         { 
-            //             heading: "Hakata Ramen for the Independent Thinker", 
-            //             body: "Your experience in teaching AI systems to make strategic decisions resonates with the Hakata Ramen experience, as it's a dish for independent thinkers. The freedom to choose your broth's richness, your noodle's firmness, and the individual toppings invites a personalised experience that aligns with your independent nature as an INTJ, allowing you to fully control your ramen experience." 
-            //         }, 
-            //         { 
-            //             heading: "Savour The Result of Patient Dedication", 
-            //             body: "As a consultant and analyst, you've mastered the ability to put in careful work and wait for the results to unfold. As an INTJ, you understand that great results come from consistent, careful work. Savouring your Hakata Ramen, which takes hours of simmering to achieve the perfect broth, mirrors this trait, allowing you to appreciate the patience and dedication that yields an exquisite result." 
-            //         } 
-            //     ], 
-            //     summary: "Appreciating Hakata Ramen entices your detailed-oriented and forward-thinking INTJ nature. It mirrors your professional journey in the world of data science and strategic analytics where you seek optimal results. The culinary mastery that goes into this dish reflects your career efforts and intellectual curiosity. Hakata Ramen offers a fusion of tradition and innovation just like your work, creating a customisable experience where you can be the independent thinker you are. Furthermore, the time and dedication that goes into creating the perfect broth mirrors your skilled patience and dedication to your projects." 
-            // })
-            // setRecommendations(mock_response); // Store the response for rendering
-
-            // // Navigate to results page with API response
-            // navigate("/result", {
-            //     state: { result_content: mock_response},
-            // });
-
             const target_ramen = "Hakata Ramen";
             const response = await fetch("https://api.openai.com/v1/chat/completions", {
                 method: "POST",
@@ -138,7 +104,7 @@ export default function RamenSense() {
         
                 // Handle invalid API key error
                 if (errorData.error && errorData.error.code === "invalid_api_key") {
-                  throw new Error(`${errorData.error.message} Otherwise contact Jarry for an API Key`);
+                  throw new Error(`${errorData.error.message} Otherwise contact Jarry for an API Key or use sample recommendation`);
                 }
         
                 // General error handling if no specific case is found
@@ -150,6 +116,54 @@ export default function RamenSense() {
             // Navigate to results page with API response
             navigate("/result", {
                 state: { result_content: result_content },
+            });
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    // Handle form submission
+    const handleDefaultSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+    
+        await new Promise(resolve => setTimeout(resolve, 7000)); // 7 sec
+        try {
+            const mock_response = JSON.stringify({"introduction": "Dear Jarry, as an intelligent INTJ with a commendable career, you surely appreciate diversity, complexity, and the art of mastering skills. We believe trying Hakata Ramen will be a new adventure that aligns perfectly with your personality and career attributes. Here are our top reasons for recommending this to you:", 
+
+                "recommendations": [
+                    {
+                      "heading": "Relish in the Complexity",
+                      "body": "Hakata Ramen will appeal to your analytical mind which thrives on delving deep into complex structures. This ramen originates from Fukuoka on the Kyushu island of Japan and its complexity lies in preparing the tonkotsu soup made from pork bones. Just like you use various technologies such as Python, Pyspark, Azure Databricks, AzureML, etc., to solve complex data problems, you’ll appreciate the depth and nuances in this delicately crafted dish."
+                    },
+                    {
+                      "heading": "Savor the Authenticity",
+                      "body": "Your dedication to mastering skills and delivering results in your career reveal your focus on authenticity. Hakata Ramen, with its unique preparation method and distinct ingredients, embodies authenticity and tradition, something you will definitely appreciate in your culinary journey."
+                    },
+                    {
+                      "heading": "Global Appreciation",
+                      "body": "Already having experience working across diverse sectors in Australia, trying Hakata Ramen aligns perfectly with your global mindset. Sampling this quintessential Japanese dish will provide an expansion to your cultural palate and offers an immersive experience of Japanese culinary tradition from Melbourne itself."
+                    },
+                    {
+                      "heading": "Unravelling Patterns",
+                      "body": "In your work, you aim at discovering use cases and designing solutions for various data science initiatives. Hakata Ramen involves a similar discovery process, with each bite offering a chance to unravel the unique patterns that make up this tasty delicacy. Mastery over this dish is all about understanding the perfect balance of ingredients."
+                    },
+                    {
+                      "heading": "Comfort in the Known",
+                      "body": "As an introverted character who appreciates routine and analysis, the simplicity of enjoying a bowl of ramen might bring comfort to you. It’s a known entity, no surprises, just layers of flavor to analyze and appreciate."
+                    }
+                  ],
+                
+                "summary": "In summary, Hakata Ramen offers a culinary experience that aligns with your love for complexity, appreciation for authenticity, global exposure, knack for unraveling patterns, and comfort in routine. Considering your analytical prowess as an INTJ, your career discretion as a top-notch data scientist and generous contributions, we strongly believe Hakata Ramen would be an excellent ramen for you to experience, utilize your skills and satiate your curiosity."})
+            setRecommendations(mock_response); // Store the response for rendering
+
+            // Navigate to results page with API response
+            navigate("/result", {
+                state: { result_content: mock_response},
             });
         } catch (err: any) {
             setError(err.message);
@@ -241,7 +255,15 @@ export default function RamenSense() {
                 {/* Error Message */}
                 {error && (<p className="text-red-500 mt-2 w-full p-2 min-h-[2rem]">{error}</p>)}
             </form>
-            {/* ✅ Back Button */}
+            {/* Sample Button */}
+            <button
+                onClick={handleDefaultSubmit}
+                className="mt-4 w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 transition flex justify-center items-center"
+                disabled={loading}
+            >
+             {loading ? "Sensing..." : "Sample Recommendation"}
+            </button>
+            {/* Back Button */}
             <button
                 onClick={() => navigate("/")}
                 className="mt-4 w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 transition flex justify-center items-center"
