@@ -11,12 +11,41 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const [apiKey, setApiKey] = useState({ apiKey: "" });
+  const [password, setPassword] = useState({ password: "" });
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const apiKey = urlParams.get("key");
-    if (apiKey) {
-      setApiKey((prev) => ({ ...prev, apiKey }));
+    const keyParam = urlParams.get("key");
+    const password = urlParams.get("password");
+
+    if (keyParam) {
+      setApiKey((prev) => ({ ...prev, keyParam }));
+      return;
+    }
+    if (password) {
+      setPassword(password);
+
+      // Only call fetch if password exists
+      const fetchData = async () => {
+        try {
+          const response = await fetch("https://nrmf4twthocc2tfydovtsldpwu0kpvrh.lambda-url.ap-southeast-2.on.aws/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ Password: password }),
+          });
+
+          const data = await response.json();
+          if (data.api_key) {
+            setApiKey({ apiKey: data.api_key }); // Set API key from response
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      
+      fetchData(); // Call the async function
     }
   }, []);
 

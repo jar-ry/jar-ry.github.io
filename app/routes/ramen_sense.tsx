@@ -17,8 +17,10 @@ export default function RamenSense() {
         linkedin: "",
         personality: "",
         apiKey: "",
+        password: ""
     });
 
+    const [openAiKey, setOpenAiKey] = useState("");
     const [loading, setLoading] = useState(false);
     const [loadingText, setLoadingText] = useState("Analysing your profile ...");
     const [error, setError] = useState("");
@@ -56,19 +58,50 @@ export default function RamenSense() {
         e.preventDefault();
         setLoading(true);
         setError("");
+        let requestApiKey = openAiKey;
+
+        if (formData.apiKey) {
+            requestApiKey = formData.apiKey
+        }
+        if (formData.password && !requestApiKey) {
+            try {
+                const response = await fetch(
+                    "https://nrmf4twthocc2tfydovtsldpwu0kpvrh.lambda-url.ap-southeast-2.on.aws/",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ Password: formData.password }),
+                    }
+                );
     
-        if (!formData.apiKey) {
+                const data = await response.json();
+                if (data.api_key) {
+                    requestApiKey = data.api_key
+                    setOpenAiKey(data.api_key); // Save API key
+                } else {
+                    throw new Error("Invalid password or missing API key.");
+                }
+            } catch (error: any) {
+                console.error("Error:", error);
+                setError(error.message || "Error retrieving API key.");
+                setLoading(false);
+                return; // Stop execution if there's an error
+            }
+        }
+        if (!formData.apiKey && !requestApiKey) {
             setError("OpenAI API key is required");
             setLoading(false);
             return;
-        }
+        } 
         try {
             const target_ramen = "Hakata Ramen";
             const response = await fetch("https://api.openai.com/v1/chat/completions", {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${formData.apiKey}`,
+                "Authorization": `Bearer ${requestApiKey}`,
                 },
                 body: JSON.stringify({
                 model: "gpt-4",
@@ -238,9 +271,19 @@ export default function RamenSense() {
                         name="apiKey"
                         value={formData.apiKey}
                         onChange={handleChange}
-                        required
                         className="w-full p-2 border rounded-lg mt-1 focus:ring focus:ring-blue-300"
                         placeholder="Enter your API Key"
+                    />
+                </div>
+                <div>
+                    <label className="block text-gray-700 font-medium">Password</label>
+                    <input
+                        type="text"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        className="w-full p-2 border rounded-lg mt-1 focus:ring focus:ring-blue-300"
+                        placeholder="Enter website password to fetch API Key"
                     />
                 </div>
                 {/* Submit Button */}
