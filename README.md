@@ -7,7 +7,7 @@ npm run dev
 ## Projects
 ### Ramen Advisor
 #### Solution Diagram
-![alt text](drawio_diagrams\ramen_sense\solution_diagram.PNG "Title")
+![alt text](drawio_diagrams/ramen_sense/solution_diagram.PNG "Title")
 #### Links
 - Lambda repo Link ([Ramen Advisor Lambda Backend](https://github.com/jar-ry/web_lambda))
 
