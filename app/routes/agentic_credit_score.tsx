@@ -48,7 +48,7 @@ export default function CreditAIPage() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
       <div className="bg-white shadow-lg rounded-xl p-6 w-full max-w-lg">
         <h1 className="text-2xl font-bold text-center mb-4">AI Credit Advisor - Under Development</h1>
-        <h1 className="text-2xl font-bold text-center mb-4">(THIS IS ONLY AN TOY EXAMPLE. THIS IS NOT FINANICAL ADVISE)</h1>
+        <h1 className="text-2xl font-bold text-center mb-4">(THIS IS ONLY A TOY EXAMPLE. THIS IS NOT FINANCIAL ADVICE)</h1>
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Session ID</label>
