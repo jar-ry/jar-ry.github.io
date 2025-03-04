@@ -5,7 +5,7 @@ export default function CreditAIPage() {
   const [financialData, setFinancialData] = useState({
     income: "5000",
     expenses: "2000",
-    debts: [],
+    debts: [{ name: "Personal Loan", amount: "1000" }],
     credit_limit: "5000",
     missed_payments: "1",
     late_payments: "2",
@@ -45,9 +45,15 @@ export default function CreditAIPage() {
       const data = await response.json();
       console.log(data)
       setSessionId(data.session_id);
+      const final_recommendation = data.updated_state.messages[data.updated_state.messages.length - 1]
+      const rawMessage = data.updated_state.messages[data.updated_state.messages.length - 2]
+      const creditScoreMatch = rawMessage.match(/'credit_score': (\d+)/)
+      const creditScore = parseInt(creditScoreMatch[1], 10)
+      console.log(creditScore)
+      console.log(final_recommendation)
       setAiResponse({
-        credit_score: data.updated_state?.credit_score,
-        financial_advice: data.updated_state?.financial_advice,
+        credit_score: creditScore,
+        financial_advice: final_recommendation,
       });
     } catch (error) {
       console.error("Error calling AI:", error);
@@ -56,10 +62,22 @@ export default function CreditAIPage() {
   };
 
   const addDebt = () => {
-    if (newDebt.type && newDebt.amount) {
-      setFinancialData({ ...financialData, debts: [...financialData.debts, newDebt] });
-      setNewDebt({ type: "", amount: "" });
-    }
+    setFinancialData({
+      ...financialData,
+      debts: [...financialData.debts, { name: "", amount: "" }],
+    });
+  };
+
+  const updateDebt = (index: number, key: string, value: string) => {
+    const updatedDebts = financialData.debts.map((debt, i) =>
+      i === index ? { ...debt, [key]: value } : debt
+    );
+    setFinancialData({ ...financialData, debts: updatedDebts });
+  };
+
+  const deleteDebt = (index: number) => {
+    const updatedDebts = financialData.debts.filter((_, i) => i !== index);
+    setFinancialData({ ...financialData, debts: updatedDebts });
   };
 
   return (
@@ -101,23 +119,26 @@ export default function CreditAIPage() {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Debts</label>
-        </div>
-        <div className="flex space-x-2 mt-2">
-            <input
-              type="text"
-              className="w-1/2 p-2 border rounded-md"
-              value={newDebt.type}
-              onChange={(e) => setNewDebt({ ...newDebt, type: e.target.value })}
-              placeholder="Debt Type"
-            />
-            <input
-              type="text"
-              className="w-1/2 p-2 border rounded-md"
-              value={newDebt.amount}
-              onChange={(e) => setNewDebt({ ...newDebt, amount: e.target.value })}
-              placeholder="Amount"
-            />
-            <button onClick={addDebt} className="p-2 bg-blue-500 text-white rounded-md">+</button>
+          {financialData.debts.map((debt, index) => (
+            <div key={index} className="flex space-x-2 mb-2">
+              <input
+                type="text"
+                className="w-1/2 p-2 border rounded-md"
+                placeholder="Debt Name"
+                value={debt.name}
+                onChange={(e) => updateDebt(index, "name", e.target.value)}
+              />
+              <input
+                type="number"
+                className="w-1/3 p-2 border rounded-md"
+                placeholder="Amount"
+                value={debt.amount}
+                onChange={(e) => updateDebt(index, "amount", e.target.value)}
+              />
+              <button className="bg-red-500 text-white px-3 py-1 rounded-md" onClick={() => deleteDebt(index)}>X</button>
+            </div>
+          ))}
+          <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md" onClick={addDebt}>Add Debt</button>
         </div>
 
         <div className="mb-4">
@@ -173,7 +194,7 @@ export default function CreditAIPage() {
           <div className="mt-6 p-4 bg-green-100 rounded-md">
             <h2 className="text-lg font-semibold">AI Recommendations</h2>
             <p><strong>Credit Score:</strong> {aiResponse.credit_score}</p>
-            <p><strong>Advice:</strong> {aiResponse.financial_advice}</p>
+            <p className="whitespace-pre-wrap"><strong>Advice:</strong> {aiResponse.financial_advice}</p>
           </div>
         )}
       </div>
